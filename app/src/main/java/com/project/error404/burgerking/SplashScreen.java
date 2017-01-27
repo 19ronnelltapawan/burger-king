@@ -54,26 +54,4 @@ public class SplashScreen extends AppCompatActivity {
         super.onPause();
         finish();
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mC = new myClass();
-
-        new CountDownTimer(1000, 1000) {
-            public void onTick(long millisUntilFinished) { }
-
-            public void onFinish() {
-                myPrefs = getSharedPreferences(mC.getPrefsName(), 0);
-                if (myPrefs.getBoolean("isLoggedIn", false))
-                    startActivity(new Intent(getApplicationContext(), MasterActivity.class));
-                else {
-                    editor = myPrefs.edit();
-                    editor.putBoolean("isFromSplash", true);
-                    editor.commit();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                }
-            }
-        }.start();
-    }
 }

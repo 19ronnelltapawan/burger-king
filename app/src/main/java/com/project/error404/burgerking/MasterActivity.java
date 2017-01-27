@@ -82,8 +82,6 @@ public class MasterActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setScrollBarDefaultDelayBeforeFade(1);
-        fab.setScrollbarFadingEnabled(true);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,26 +208,24 @@ public class MasterActivity extends AppCompatActivity
 
     private void initViews() {
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
-        recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy){
-                if (dy > 0 ||dy<0 && fab.isShown())
+                if (dy > 0 ||dy < 0 && fab.isShown())
                     fab.hide();
             }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
                 if (newState == RecyclerView.SCROLL_STATE_IDLE){
                     fab.show();
                 }
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
 
         ArrayList list = prepareData();
         DataAdapter adapter = new DataAdapter(getApplicationContext(), list);

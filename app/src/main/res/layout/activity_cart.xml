@@ -47,5 +47,6 @@
         android:id="@+id/button14"
         android:onClick="onClickEdit"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/button3" />
+        android:layout_toStartOf="@+id/button3"
+        android:visibility="invisible" />
 </RelativeLayout>
