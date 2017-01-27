@@ -8,9 +8,7 @@ public class myClass {
 
     double price=0, golarge=0, quantity=0, total=0;
 
-    public String getPrefsName() {
-        return "BKPrefs";
-    }
+    public String getPrefsName() { return "myPrefs"; }
 
     public int updateQuantity(int currentqty, int previousqty) { return currentqty+previousqty; }
 

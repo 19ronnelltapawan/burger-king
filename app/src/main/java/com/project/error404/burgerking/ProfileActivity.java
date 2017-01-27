@@ -43,12 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         pass.setText(res.getString(4));
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(), MasterActivity.class));
-        finish();
-    }
+
 
     public void onClickUpdate(View view) {
         if (fname.getText().toString().isEmpty() || lname.getText().toString().isEmpty() || email.getText().toString().isEmpty() || pass.getText().toString().isEmpty()) {
@@ -81,6 +76,13 @@ public class ProfileActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MasterActivity.class));
+        finish();
     }
 
     @Override

@@ -22,8 +22,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create Table "+TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,Fname TEXT,Lname TEXT,Email TEXT Unique,Password TEXT,History TEXT)");
-        db.execSQL("Create Table "+TABLE_NAME2+"(ID INTEGER,ItemNo INTEGER,Item TEXT,Quantity TEXT,Drink TEXT,GoLarge TEXT,Price TEXT)");
+        db.execSQL("Create Table "+TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT, Fname TEXT, Lname TEXT, Email TEXT Unique, Password TEXT, History TEXT)");
+        db.execSQL("Create Table "+TABLE_NAME2+"(ID INTEGER, ItemNo INTEGER, Item TEXT, Quantity TEXT, Drink TEXT, GoLarge TEXT, Price TEXT)");
     }
 
     @Override

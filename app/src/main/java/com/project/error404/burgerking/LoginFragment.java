@@ -14,6 +14,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +24,18 @@ import android.widget.Toast;
  */
 public class LoginFragment extends Fragment {
 
+    Button login;
     EditText email,pass;
     TextView swipe;
-    ImageView logo;
-    Button login;
-    myClass mc;
+    RelativeLayout myLayout;
+
+    String storedPassword;
+
+    Animation anim;
+    myClass mC;
     DatabaseHelper myDB;
     SharedPreferences myPrefs;
+    SharedPreferences.Editor editor;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -43,35 +49,33 @@ public class LoginFragment extends Fragment {
         pass = (EditText) view.findViewById(R.id.editText2);
         login = (Button) view.findViewById(R.id.button);
         swipe = (TextView) view.findViewById(R.id.textView);
-        logo = (ImageView) view.findViewById(R.id.imageView);
+        myLayout = (RelativeLayout) view.findViewById(R.id.myLayout);
 
-        mc = new myClass();
+        mC = new myClass();
         myDB = new DatabaseHelper(getActivity());
-        myPrefs = getActivity().getSharedPreferences(mc.getPrefsName(), 0);
+        myPrefs = getActivity().getSharedPreferences(mC.getPrefsName(), 0);
 
-        if (myPrefs.getBoolean("isFromSplash", false)) {
-            Animation fromTop = AnimationUtils.loadAnimation(getActivity(), R.anim.fromtop);
-            logo.startAnimation(fromTop);
+        if (myPrefs.getBoolean("isFromSplash", true)) {
+            anim = AnimationUtils.loadAnimation(getActivity(), R.anim.leftright);
+            myLayout.startAnimation(anim);
         }
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String storedPassword = myDB.getLoginInfo(email.getText().toString());
+                storedPassword = myDB.getLoginInfo(email.getText().toString());
                 if (pass.getText().toString().equals(storedPassword)) {
-                    SharedPreferences myPrefs = getActivity().getSharedPreferences(mc.getPrefsName(), 0);
-                    SharedPreferences.Editor editor = myPrefs.edit();
-                    editor.putBoolean("isLoggedIn", true);
+                    editor = myPrefs.edit();
                     editor.putBoolean("isFromSplash", false);
+                    editor.putBoolean("isLoggedIn", true);
                     editor.putString("email", email.getText().toString());
                     editor.commit();
                     startActivity(new Intent(getActivity().getApplicationContext(), MasterActivity.class));
-                    getActivity().finish();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Email address or password do not match", Toast.LENGTH_LONG).show();
-                    Animation bounce = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
-                    swipe.startAnimation(bounce);
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Email address or password is incorrect", Toast.LENGTH_LONG).show();
+                    anim = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
+                    swipe.startAnimation(anim);
                 }
             }
         });

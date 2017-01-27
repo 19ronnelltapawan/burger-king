@@ -14,7 +14,9 @@ import java.util.TimerTask;
 
 public class SplashScreen extends AppCompatActivity {
 
-    myClass mc = new myClass();
+    myClass mC;
+    SharedPreferences myPrefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +30,17 @@ public class SplashScreen extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
         setContentView(R.layout.activity_splash_screen);
 
-        new CountDownTimer(3000, 1000) {
+        mC = new myClass();
 
+        new CountDownTimer(3000, 1000) {
             public void onTick(long millisUntilFinished) { }
 
             public void onFinish() {
-                SharedPreferences myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
+                myPrefs = getSharedPreferences(mC.getPrefsName(), 0);
                 if (myPrefs.getBoolean("isLoggedIn", false))
                     startActivity(new Intent(getApplicationContext(), MasterActivity.class));
                 else {
-                    SharedPreferences.Editor editor = myPrefs.edit();
+                    editor = myPrefs.edit();
                     editor.putBoolean("isFromSplash", true);
                     editor.commit();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -50,5 +53,27 @@ public class SplashScreen extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         finish();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mC = new myClass();
+
+        new CountDownTimer(1000, 1000) {
+            public void onTick(long millisUntilFinished) { }
+
+            public void onFinish() {
+                myPrefs = getSharedPreferences(mC.getPrefsName(), 0);
+                if (myPrefs.getBoolean("isLoggedIn", false))
+                    startActivity(new Intent(getApplicationContext(), MasterActivity.class));
+                else {
+                    editor = myPrefs.edit();
+                    editor.putBoolean("isFromSplash", true);
+                    editor.commit();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
+            }
+        }.start();
     }
 }

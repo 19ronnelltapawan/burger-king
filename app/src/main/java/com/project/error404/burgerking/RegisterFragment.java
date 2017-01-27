@@ -24,10 +24,15 @@ import android.widget.Toast;
  */
 public class RegisterFragment extends Fragment {
 
-    EditText fname,lname,email,pass;
     Button register;
+    EditText fname,lname,email,pass;
+
+    boolean isSaved;
+
     DatabaseHelper myDB;
-    myClass mc;
+    myClass mC;
+    SharedPreferences myPrefs;
+    SharedPreferences.Editor editor;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -41,10 +46,11 @@ public class RegisterFragment extends Fragment {
         lname = (EditText) view.findViewById(R.id.editText4);
         email = (EditText) view.findViewById(R.id.editText5);
         pass = (EditText) view.findViewById(R.id.editText6);
-        register = (Button) view.findViewById(R.id.button2);
+        register = (Button) view.findViewById(R.id.button);
 
+        mC = new myClass();
         myDB = new DatabaseHelper(getActivity());
-        mc = new myClass();
+        myPrefs = getActivity().getSharedPreferences(mC.getPrefsName(), 0);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +69,9 @@ public class RegisterFragment extends Fragment {
                         pass.setError("Please enter your password");
                 }
                 else {
-                    if (!fname.getText().toString().matches("^[A-Z][a-zA-Z]+$") || !lname.getText().toString().matches("^[A-Z][a-zA-Z]+$") || !email.getText().toString().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
+                    if (!fname.getText().toString().matches("^[A-Z][a-zA-Z]+$") ||
+                            !lname.getText().toString().matches("^[A-Z][a-zA-Z]+$") ||
+                            !email.getText().toString().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
                         if (!fname.getText().toString().matches("^[A-Z][a-zA-Z]+$"))
                             fname.setError("Please enter a valid name (first letter must be capital)");
                         if (!lname.getText().toString().matches("^[A-Z][a-zA-Z]+$"))
@@ -72,14 +80,14 @@ public class RegisterFragment extends Fragment {
                             email.setError("Please enter a valid email");
                     }
                     else {
-                        boolean isSaved = myDB.SaveRecord(fname.getText().toString(), lname.getText().toString(), email.getText().toString(), pass.getText().toString());
+                        isSaved = myDB.SaveRecord(fname.getText().toString(), lname.getText().toString(), email.getText().toString(), pass.getText().toString());
                         if (isSaved) {
-                            SharedPreferences myPrefs = getActivity().getSharedPreferences(mc.getPrefsName(), 0);
-                            SharedPreferences.Editor editor = myPrefs.edit();
+                            editor = myPrefs.edit();
                             editor.putBoolean("isFromSplash", false);
+                            editor.putBoolean("isLoggedIn", true);
+                            editor.putString("email", email.getText().toString());
                             editor.commit();
-                            startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
-                            getActivity().finish();
+                            startActivity(new Intent(getActivity().getApplicationContext(), MasterActivity.class));
                         }
                         else
                             Toast.makeText(getActivity().getApplication(), "Email already taken",Toast.LENGTH_SHORT).show();

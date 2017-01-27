@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/menu_top"
+        android:checkableBehavior="none">
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/profile"
-            android:title="Profile" />
+            android:title="Edit Account" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/history"
-            android:title="History" />
+            android:title="History of Orders" />
+    </group>
+
+    <group android:id="@+id/menu_bottom">
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout" />
     </group>
-
 </menu>
