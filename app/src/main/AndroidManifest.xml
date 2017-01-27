@@ -18,23 +18,23 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="   "
+            android:label="Welcome"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ProfileActivity"
-            android:label="PROFILE"
+            android:label="Profile"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".OrderActivity"
-            android:label="BURGER KING"
+            android:label="Burgers"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".CartActivity"
-            android:label="CART"
+            android:label="Cart"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MasterActivity"
-            android:label="HOME"
+            android:label="Home"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

@@ -4,12 +4,9 @@
     android:repeatCount="0" >
 
     <translate
-        android:duration="@android:integer/config_mediumAnimTime"
-        android:fromYDelta="50%"
+        android:duration="250"
+        android:fromYDelta="55%"
         android:toYDelta="0%" />
 
-    <alpha
-        android:duration="@android:integer/config_mediumAnimTime"
-        android:fromAlpha="0.0"
-        android:toAlpha="1.0" />
+
 </set>

@@ -36,9 +36,12 @@ public class SplashScreen extends AppCompatActivity {
                 SharedPreferences myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
                 if (myPrefs.getBoolean("isLoggedIn", false))
                     startActivity(new Intent(getApplicationContext(), MasterActivity.class));
-                else
+                else {
+                    SharedPreferences.Editor editor = myPrefs.edit();
+                    editor.putBoolean("isFromSplash", true);
+                    editor.commit();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                finish();
+                }
             }
         }.start();
     }

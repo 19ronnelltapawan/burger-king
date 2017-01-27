@@ -65,14 +65,21 @@ public class ProfileActivity extends AppCompatActivity {
                 pass.setError("Please enter your password");
         }
         else {
-            myDB.updateRecord(id.getText().toString(), fname.getText().toString(), lname.getText().toString(), email.getText().toString(), pass.getText().toString());
-            Toast.makeText(getApplicationContext(), "Update successful!", Toast.LENGTH_LONG).show();
-            SharedPreferences myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
-            SharedPreferences.Editor editor = myPrefs.edit();
-            editor.putString("email", email.getText().toString());
-            editor.commit();
-            startActivity(new Intent(getApplicationContext(), MasterActivity.class));
-            finish();
+            Cursor viewEmailRecords = myDB.viewEmailRecords(email.getText().toString());
+
+            if (viewEmailRecords.getCount() > 0) {
+                Toast.makeText(getApplicationContext(), "Email already taken", Toast.LENGTH_LONG).show();
+            }
+            else {
+                myDB.updateRecord(id.getText().toString(), fname.getText().toString(), lname.getText().toString(), email.getText().toString(), pass.getText().toString());
+                Toast.makeText(getApplicationContext(), "Update successful!", Toast.LENGTH_LONG).show();
+                SharedPreferences myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
+                SharedPreferences.Editor editor = myPrefs.edit();
+                editor.putString("email", email.getText().toString());
+                editor.commit();
+                startActivity(new Intent(getApplicationContext(), MasterActivity.class));
+                finish();
+            }
         }
     }
 

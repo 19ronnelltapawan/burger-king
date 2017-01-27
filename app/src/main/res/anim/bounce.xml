@@ -6,6 +6,6 @@
     <!-- Use your working translate animation here-->
     <translate
         android:duration="500"
-        android:fromXDelta="100%p"
-        android:toXDelta="0%p" />
+        android:fromXDelta="20%"
+        android:toXDelta="0%" />
 </set>

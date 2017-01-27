@@ -57,15 +57,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("Lname", lname);
         contentValues.put("Email", email);
         contentValues.put("Password", password);
-        db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {id});
-        return true;
+        long result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     //Select all users
-    public Cursor ViewRecords() {
+    public Cursor viewEmailRecords(String email) {
         SQLiteDatabase viewRec = this.getWritableDatabase();
         Cursor resultSet;
-        resultSet = viewRec.rawQuery("SELECT * FROM "+TABLE_NAME, null);
+        resultSet = viewRec.rawQuery("SELECT Email FROM "+TABLE_NAME+" WHERE Email='"+email+"'", null);
+        resultSet.moveToFirst();
         return resultSet;
     }
 

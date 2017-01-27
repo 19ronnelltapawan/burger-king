@@ -76,7 +76,6 @@ public class MasterActivity extends AppCompatActivity
         editor.commit();
 
         current_id = myPrefs.getInt("id", 0);
-        setTitle("HOME  ");
 
         TextView fullname = (TextView) header.findViewById(R.id.fullName);
         fullname.setText(res.getString(1)+" "+res.getString(2));
@@ -164,6 +163,7 @@ public class MasterActivity extends AppCompatActivity
             myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
             SharedPreferences.Editor editor = myPrefs.edit();
             editor.putBoolean("isLoggedIn", false);
+            editor.putBoolean("isFromSplash", false);
             editor.putString("email", "");
             editor.putInt("id", -1);
             editor.commit();

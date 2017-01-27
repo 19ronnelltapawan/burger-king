@@ -29,11 +29,11 @@ public class LoginFragment extends Fragment {
     Button login;
     myClass mc;
     DatabaseHelper myDB;
+    SharedPreferences myPrefs;
 
     public LoginFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,15 +45,15 @@ public class LoginFragment extends Fragment {
         swipe = (TextView) view.findViewById(R.id.textView);
         logo = (ImageView) view.findViewById(R.id.imageView);
 
-        /* Bundle bundle = getArguments();
-        String message = Integer.toString(bundle.getInt("count"));*/
         mc = new myClass();
         myDB = new DatabaseHelper(getActivity());
+        myPrefs = getActivity().getSharedPreferences(mc.getPrefsName(), 0);
 
-        ((LoginActivity) getActivity()).setActionBarTitle("LOGIN");
+        if (myPrefs.getBoolean("isFromSplash", false)) {
+            Animation fromTop = AnimationUtils.loadAnimation(getActivity(), R.anim.fromtop);
+            logo.startAnimation(fromTop);
+        }
 
-        Animation fromTop = AnimationUtils.loadAnimation(getActivity(), R.anim.fromtop);
-        logo.startAnimation(fromTop);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +63,7 @@ public class LoginFragment extends Fragment {
                     SharedPreferences myPrefs = getActivity().getSharedPreferences(mc.getPrefsName(), 0);
                     SharedPreferences.Editor editor = myPrefs.edit();
                     editor.putBoolean("isLoggedIn", true);
+                    editor.putBoolean("isFromSplash", false);
                     editor.putString("email", email.getText().toString());
                     editor.commit();
                     startActivity(new Intent(getActivity().getApplicationContext(), MasterActivity.class));

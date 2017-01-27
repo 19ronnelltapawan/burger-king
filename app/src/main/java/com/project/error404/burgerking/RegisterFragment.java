@@ -3,6 +3,7 @@ package com.project.error404.burgerking;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,16 +25,13 @@ import android.widget.Toast;
 public class RegisterFragment extends Fragment {
 
     EditText fname,lname,email,pass;
-    TextView swipe;
     Button register;
-
     DatabaseHelper myDB;
-
+    myClass mc;
 
     public RegisterFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,16 +42,9 @@ public class RegisterFragment extends Fragment {
         email = (EditText) view.findViewById(R.id.editText5);
         pass = (EditText) view.findViewById(R.id.editText6);
         register = (Button) view.findViewById(R.id.button2);
-        swipe = (TextView) view.findViewById(R.id.textView);
-
-        ((LoginActivity) getActivity()).setActionBarTitle("REGISTER");
 
         myDB = new DatabaseHelper(getActivity());
-
-        Animation bounce = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
-        bounce.setRepeatMode(Animation.REVERSE);
-        bounce.setRepeatCount(Animation.INFINITE);
-        swipe.startAnimation(bounce);
+        mc = new myClass();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,17 +63,21 @@ public class RegisterFragment extends Fragment {
                         pass.setError("Please enter your password");
                 }
                 else {
-                    if (!fname.getText().toString().matches("^[a-zA-Z]+$") || !lname.getText().toString().matches("^[a-zA-Z]+$") || !email.getText().toString().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
-                        if (!fname.getText().toString().matches("^[a-zA-Z]+$"))
-                            fname.setError("Please enter a valid name");
-                        if (!lname.getText().toString().matches("^[a-zA-Z]+$"))
-                            lname.setError("Please enter a valid name");
+                    if (!fname.getText().toString().matches("^[A-Z][a-zA-Z]+$") || !lname.getText().toString().matches("^[A-Z][a-zA-Z]+$") || !email.getText().toString().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
+                        if (!fname.getText().toString().matches("^[A-Z][a-zA-Z]+$"))
+                            fname.setError("Please enter a valid name (first letter must be capital)");
+                        if (!lname.getText().toString().matches("^[A-Z][a-zA-Z]+$"))
+                            lname.setError("Please enter a valid name (first letter must be capital)");
                         if (!email.getText().toString().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))
                             email.setError("Please enter a valid email");
                     }
                     else {
                         boolean isSaved = myDB.SaveRecord(fname.getText().toString(), lname.getText().toString(), email.getText().toString(), pass.getText().toString());
                         if (isSaved) {
+                            SharedPreferences myPrefs = getActivity().getSharedPreferences(mc.getPrefsName(), 0);
+                            SharedPreferences.Editor editor = myPrefs.edit();
+                            editor.putBoolean("isFromSplash", false);
+                            editor.commit();
                             startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
                             getActivity().finish();
                         }
@@ -95,5 +90,4 @@ public class RegisterFragment extends Fragment {
 
         return view;
     }
-
 }
