@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_master"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorWhite"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.project.error404.burgerking.MasterActivity"
+    tools:showIn="@layout/app_bar_master">
+
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/hamburger"
+        android:id="@+id/hamburger"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/doublecheeseburger"
+        android:id="@+id/doublecheeseburger"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/cheeseburger"
+        android:id="@+id/cheeseburger"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/baconcheesewhopper"
+        android:id="@+id/baconcheesewhopper"
+        android:layout_below="@+id/doublecheeseburger"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="11dp"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/bacondoublecheeseburger"
+        android:id="@+id/bacondoublecheeseburger"
+        android:layout_alignTop="@+id/baconcheesewhopper"
+        android:layout_alignStart="@+id/cheeseburger"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/baconcheeseburger"
+        android:id="@+id/baconcheeseburger"
+        android:layout_alignTop="@+id/bacondoublecheeseburger"
+        android:layout_alignParentStart="true"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/whopperjr"
+        android:layout_marginTop="9dp"
+        android:id="@+id/whopperjr"
+        android:layout_below="@+id/baconcheesewhopper"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/whopper"
+        android:id="@+id/whopper"
+        android:layout_alignTop="@+id/whopperjr"
+        android:layout_alignStart="@+id/bacondoublecheeseburger"
+        android:onClick="onClickBurger"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/doublewhopper"
+        android:id="@+id/doublewhopper"
+        android:layout_alignTop="@+id/whopper"
+        android:layout_alignParentStart="true"
+        android:onClick="onClickBurger"/>
+
+</RelativeLayout>

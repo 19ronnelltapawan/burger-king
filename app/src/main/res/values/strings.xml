@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Burger King</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="drinks">
+        <item>Choose drink</item>
+        <item>Coke</item>
+        <item>Sprite</item>
+        <item>Royal</item>
+        <item>Iced tea</item>
+    </string-array>
+    <string name="title_activity_master">MasterActivity</string>
+
+
+    <string name="placeholder">Nothing to see here</string>
+
+    <string name="golarge_desc">Large Fries and Drink (+40)</string>
+    <string name="hamburger_desc">Try our Hamburger, a signature flame-grilled. beef patty topped with a simple layer of crinkle cut pickles, yellow mustard, and ketchup on a toasted sesame seed bun.</string>
+    <string name="cheeseburger_desc">You can’t go wrong with our cheeseburger, a signature flame-grilled. beef patty topped with a simple layer of melted American cheese, crinkle cut pickles, yellow mustard, and ketchup on a toasted sesame seed bun.</string>
+    <string name="doublecheeseburger_desc">Make room for our Double Cheeseburger, two signature flame-grilled beef patties topped with a simple layer of melted American cheese, crinkle cut pickles, yellow mustard, and ketchup on a toasted sesame seed bun.</string>
+    <string name="baconcheeseburger_desc">You can’t go wrong with our Bacon Cheeseburger, a signature flame-grilled beef patty topped with smoked bacon and a layer of melted American cheese, crinkle cut pickles, yellow mustard, and ketchup on a toasted sesame seed bun.</string>
+    <string name="bacondoublecheeseburger_desc">Make room for our Double Cheeseburger, two signature flame-grilled beef patties topped with a simple layer of melted American cheese, crinkle cut pickles, yellow mustard, and ketchup on a toasted sesame seed bun.</string>
+    <string name="baconcheesewhopper_desc">Our Bacon and Cheese WHOPPER® Sandwich is a ¼ lb.* of savory flame-grilled beef topped with thick-cut smoked bacon, melted American cheese, ripe tomatoes, fresh lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a soft sesame seed bun.</string>
+    <string name="doublewhopper_desc">Our DOUBLE WHOPPER® Sandwich is a pairing of two ¼ lb* savory flame-grilled beef patties topped with juicy tomatoes, fresh lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a soft sesame seed bun.</string>
+    <string name="whopper_desc">Our WHOPPER® Sandwich is a ¼ lb* of savory flame-grilled beef topped with juicy tomatoes, fresh lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a soft sesame seed bun.</string>
+    <string name="whopperjr_desc">Our WHOPPER JR.® Sandwich features one savory flame-grilled beef patty topped with juicy tomatoes, fresh lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a soft sesame seed bun.</string>
+
+    <string name="hamburger_alacarte">Hamburger\n(Ala carte-PHP 40)</string>
+    <string name="hamburger_meal">Hamburger\n(Meal-PHP 60)</string>
+    <string name="cheeseburger_alacarte">Cheeseburger\n(Ala carte-PHP 50)</string>
+    <string name="cheeseburger_meal">Cheeseburger\n(Meal-PHP 70)</string>
+    <string name="doublecheeseburger_alacarte">Double Cheeseburger\n(Ala carte-PHP 79)</string>
+    <string name="doublecheeseburger_meal">Double Cheeseburger\n(Meal-PHP 99)</string>
+    <string name="baconcheeseburger_alacarte">Bacon Cheeseburger\n(Ala carte-PHP 85)</string>
+    <string name="baconcheeseburger_meal">Bacon Cheeseburger\n(Meal-PHP 109)</string>
+    <string name="bacondoublecheeseburger_alacarte">Bacon Double Cheeseburger\n(Ala carte-PHP 109)</string>
+    <string name="bacondoublecheeseburger_meal">Bacon Double Cheeseburger\n(Meal-PHP 129)</string>
+    <string name="baconcheesewhopper_alacarte">Bacon Cheese Whopper\n(Ala carte-PHP 99)</string>
+    <string name="baconcheesewhopper_meal">Bacon Cheese Whopper\n(Meal-PHP 119)</string>
+    <string name="doublewhopper_alacarte">Double Whopper\n(Ala carte-PHP 129)</string>
+    <string name="doublewhopper_meal">Double Whopper\n(Meal-PHP 159)</string>
+    <string name="whopper_alacarte">Whopper\n(Ala carte-PHP 75)</string>
+    <string name="whopper_meal">Whopper\n(Meal-PHP 99)</string>
+    <string name="whopperjr_alacarte">Whopper\n(Ala carte-PHP 65)</string>
+    <string name="whopperjr_meal">Whopper\n(Meal-PHP 85)</string>
+
+    <string name="hamburger_alacarte_name">Hamburger (Ala carte-PHP 40)</string>
+    <string name="hamburger_meal_name">Hamburger (Meal-PHP 60)</string>
+    <string name="cheeseburger_alacarte_name">Cheeseburger (Ala carte-PHP 50)</string>
+    <string name="cheeseburger_meal_name">Cheeseburger (Meal-PHP 70)</string>
+    <string name="doublecheeseburger_alacarte_name">Double Cheeseburger (Ala carte-PHP 79)</string>
+    <string name="doublecheeseburger_meal_name">Double Cheeseburger (Meal-PHP 99)</string>
+    <string name="baconcheeseburger_alacarte_name">Bacon Cheeseburger (Ala carte-PHP 85)</string>
+    <string name="baconcheeseburger_meal_name">Bacon Cheeseburger (Meal-PHP 109)</string>
+    <string name="bacondoublecheeseburger_alacarte_name">Bacon Double Cheeseburger (Ala carte-PHP 109)</string>
+    <string name="bacondoublecheeseburger_meal_name">Bacon Double Cheeseburger (Meal-PHP 129)</string>
+    <string name="baconcheesewhopper_alacarte_name">Bacon Cheese Whopper (Ala carte-PHP 99)</string>
+    <string name="baconcheesewhopper_meal_name">Bacon Cheese Whopper (Meal-PHP 119)</string>
+    <string name="doublewhopper_alacarte_name">Double Whopper (Ala carte-PHP 129)</string>
+    <string name="doublewhopper_meal_name">Double Whopper (Meal-PHP 159)</string>
+    <string name="whopper_alacarte_name">Whopper (Ala carte-PHP 75)</string>
+    <string name="whopper_meal_name">Whopper (Meal-PHP 99)</string>
+    <string name="whopperjr_alacarte_name">Whopper (Ala carte-PHP 65)</string>
+    <string name="whopperjr_meal_name">Whopper (Meal-PHP 85)</string>
+
+    <string name="swiperight">Swipe right to register &gt;&gt;&gt;</string>
+    <string name="swipeleft">&lt;&lt;&lt; Swipe left to go back</string>
+</resources>
