@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
 
         mC = new myClass();
 
-        new CountDownTimer(3000, 1000) {
+        new CountDownTimer(1300, 1000) {
             public void onTick(long millisUntilFinished) { }
 
             public void onFinish() {
@@ -45,13 +45,8 @@ public class SplashScreen extends AppCompatActivity {
                     editor.commit();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
+                finish();
             }
         }.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        finish();
     }
 }

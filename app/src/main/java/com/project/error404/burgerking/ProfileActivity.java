@@ -16,15 +16,22 @@ import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    EditText id,fname,lname,email,pass,input;
-    DatabaseHelper myDB = new DatabaseHelper(this);
-    myClass mc = new myClass();
+    EditText id,fname,lname,email,pass;
+
+    String current_email;
+
     Cursor res;
+    DatabaseHelper myDB;
+    myClass mc;
+    SharedPreferences myPrefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         id = (EditText) findViewById(R.id.editText9);
         fname = (EditText) findViewById(R.id.editText10);
@@ -32,18 +39,19 @@ public class ProfileActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.editText12);
         pass = (EditText) findViewById(R.id.editText13);
 
-        SharedPreferences myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
-        String current_email = myPrefs.getString("email", "");
-        res = myDB.getCurrentData(current_email);
+        mc = new myClass();
+        myDB = new DatabaseHelper(this);
 
+        myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
+        current_email  = myPrefs.getString("email", "");
+
+        res = myDB.getCurrentData(current_email);
         id.setText(res.getString(0));
         fname.setText(res.getString(1));
         lname.setText(res.getString(2));
         email.setText(res.getString(3));
         pass.setText(res.getString(4));
     }
-
-
 
     public void onClickUpdate(View view) {
         if (fname.getText().toString().isEmpty() || lname.getText().toString().isEmpty() || email.getText().toString().isEmpty() || pass.getText().toString().isEmpty()) {
@@ -60,16 +68,15 @@ public class ProfileActivity extends AppCompatActivity {
                 pass.setError("Please enter your password");
         }
         else {
-            Cursor viewEmailRecords = myDB.viewEmailRecords(email.getText().toString());
+            res = myDB.viewEmailRecords(email.getText().toString());
 
-            if (viewEmailRecords.getCount() > 0) {
+            if (res.getCount() > 0)
                 Toast.makeText(getApplicationContext(), "Email already taken", Toast.LENGTH_LONG).show();
-            }
             else {
                 myDB.updateRecord(id.getText().toString(), fname.getText().toString(), lname.getText().toString(), email.getText().toString(), pass.getText().toString());
                 Toast.makeText(getApplicationContext(), "Update successful!", Toast.LENGTH_LONG).show();
-                SharedPreferences myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
-                SharedPreferences.Editor editor = myPrefs.edit();
+                myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
+                editor = myPrefs.edit();
                 editor.putString("email", email.getText().toString());
                 editor.commit();
                 startActivity(new Intent(getApplicationContext(), MasterActivity.class));
@@ -82,12 +89,6 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(getApplicationContext(), MasterActivity.class));
-        finish();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
         finish();
     }
 }

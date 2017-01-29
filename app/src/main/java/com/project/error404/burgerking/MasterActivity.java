@@ -66,11 +66,14 @@ public class MasterActivity extends AppCompatActivity
     String current_email, inputText;
 
     AlertDialog.Builder builder;
+    ArrayList list;
     Cursor res;
+    DataAdapter adapter;
     DatabaseHelper myDB;
     FloatingActionButton fab;
     myClass mC;
     RecyclerModel rC;
+    RecyclerView recyclerView;
     SharedPreferences myPrefs;
     SharedPreferences.Editor editor;
 
@@ -114,12 +117,12 @@ public class MasterActivity extends AppCompatActivity
         myPrefs = getSharedPreferences(mC.getPrefsName(), 0);
 
         current_email = myPrefs.getString("email", "");
-        current_id = myPrefs.getInt("id", 0);
         res = myDB.getCurrentData(current_email);
 
         editor = myPrefs.edit();
         editor.putInt("id", Integer.parseInt(res.getString(0)));
         editor.commit();
+        current_id = myPrefs.getInt("id", 0);
 
         fullname.setText(res.getString(1)+" "+res.getString(2));
         email.setText(res.getString(3));
@@ -162,6 +165,7 @@ public class MasterActivity extends AppCompatActivity
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    res = myDB.getCurrentData(current_email);
                     inputText = input.getText().toString();
                     if (inputText.equals(res.getString(4)))
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
@@ -178,8 +182,8 @@ public class MasterActivity extends AppCompatActivity
             builder.show();
         }
         else if (id == R.id.nav_history) {
-            builder = new AlertDialog.Builder(this);
             res = myDB.getHistory(current_id);
+            builder = new AlertDialog.Builder(this);
 
             if (res.getString(0) == null)
                 builder.setMessage("Nothing found, order now!");
@@ -207,8 +211,8 @@ public class MasterActivity extends AppCompatActivity
     }
 
     private void initViews() {
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy){
@@ -227,8 +231,8 @@ public class MasterActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        ArrayList list = prepareData();
-        DataAdapter adapter = new DataAdapter(getApplicationContext(), list);
+        list = prepareData();
+        adapter = new DataAdapter(getApplicationContext(), list);
         recyclerView.setAdapter(adapter);
     }
 
@@ -254,11 +258,5 @@ public class MasterActivity extends AppCompatActivity
             super.onBackPressed();
             finish();
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        finish();
     }
 }
