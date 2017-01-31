@@ -69,12 +69,12 @@ public class RegisterFragment extends Fragment {
                         pass.setError("Please enter your password");
                 }
                 else {
-                    if (!fname.getText().toString().matches("^[A-Z][a-zA-Z]+$") ||
-                            !lname.getText().toString().matches("^[A-Z][a-zA-Z]+$") ||
+                    if (!fname.getText().toString().matches("^[A-Z][a-zA-Z( )?]+$") ||
+                            !lname.getText().toString().matches("^[A-Z][a-zA-Z( )?]+$") ||
                             !email.getText().toString().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
-                        if (!fname.getText().toString().matches("^[A-Z][a-zA-Z]+$"))
+                        if (!fname.getText().toString().matches("^[A-Z][a-zA-Z( )?]+$"))
                             fname.setError("Please enter a valid name (first letter must be capital)");
-                        if (!lname.getText().toString().matches("^[A-Z][a-zA-Z]+$"))
+                        if (!lname.getText().toString().matches("^[A-Z][a-zA-Z( )?]+$"))
                             lname.setError("Please enter a valid name (first letter must be capital)");
                         if (!email.getText().toString().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"))
                             email.setError("Please enter a valid email");

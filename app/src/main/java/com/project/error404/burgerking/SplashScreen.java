@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,6 +48,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
                 finish();
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         }.start();
     }

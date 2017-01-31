@@ -136,8 +136,8 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(), MasterActivity.class));
         finish();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     public void onClickCheckbox(View view) {
@@ -241,6 +241,7 @@ public class OrderActivity extends AppCompatActivity {
                     Initialize();
                 } else
                     Toast.makeText(getApplicationContext(), "Please check all of the requirements", Toast.LENGTH_SHORT).show();
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         }
     }
@@ -252,6 +253,7 @@ public class OrderActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"No items found",Toast.LENGTH_LONG).show();
         else
             startActivity(new Intent(getApplicationContext(), CartActivity.class));
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     private void Initialize() {

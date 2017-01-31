@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     Animation animateLogo;
     myClass mC;
     SharedPreferences myPrefs;
-    SharedPreferences.Editor editor;
     SwipeAdapter swipeAdapter;
     ViewPager viewPager;
 
@@ -32,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        //LoginActivity.this.overridePendingTransition( R.anim.right_in, R.anim.right_out);
         logo = (ImageView) findViewById(R.id.imageView);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);

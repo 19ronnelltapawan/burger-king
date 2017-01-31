@@ -25,8 +25,8 @@
         <activity
             android:name=".ProfileActivity"
             android:label="Profile"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".MasterActivity" />
+            android:parentActivityName=".MasterActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".OrderActivity"
             android:label="Burgers"
@@ -40,6 +40,7 @@
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PlaceholderActivity" />
+        <activity android:name=".SubCategoryActivity" />
     </application>
 
 </manifest>

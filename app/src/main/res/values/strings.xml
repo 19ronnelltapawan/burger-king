@@ -44,7 +44,7 @@
     <string name="whopper_alacarte">Whopper\n(Ala carte-PHP 75)</string>
     <string name="whopper_meal">Whopper\n(Meal-PHP 99)</string>
     <string name="whopperjr_alacarte">Whopper\n(Ala carte-PHP 65)</string>
-    <string name="whopperjr_meal">Whopper\n(Meal-PHP 85)</string>
+    <string name="whopperjr_meal">Whopper Jr.\n(Meal-PHP 85)</string>
 
     <string name="hamburger_alacarte_name">Hamburger (Ala carte-PHP 40)</string>
     <string name="hamburger_meal_name">Hamburger (Meal-PHP 60)</string>
@@ -63,8 +63,20 @@
     <string name="whopper_alacarte_name">Whopper (Ala carte-PHP 75)</string>
     <string name="whopper_meal_name">Whopper (Meal-PHP 99)</string>
     <string name="whopperjr_alacarte_name">Whopper (Ala carte-PHP 65)</string>
-    <string name="whopperjr_meal_name">Whopper (Meal-PHP 85)</string>
+    <string name="whopperjr_meal_name">Whopper Jr. (Meal-PHP 85)</string>
 
     <string name="swiperight">Swipe right to register &gt;&gt;&gt;</string>
     <string name="swipeleft">&lt;&lt;&lt; Swipe left to go back</string>
+
+    <string name="hamburger_price">Hamburger\nAla carte-PHP 40\nMeal-PHP 60</string>
+    <string name="cheeseburger_price">Cheeseburger\nAla carte-PHP 50\nMeal-PHP 70</string>
+    <string name="doublecheeseburger_price">Double Cheeseburger\nAla carte-PHP 79\nMeal-PHP 99</string>
+    <string name="baconcheeseburger_price">Bacon Cheeseburger\nAla carte-PHP 85\nMeal-PHP 109</string>
+    <string name="bacondoublecheeseburger_price">Bacon Double Cheeseburger\nAla carte-PHP 109\nMeal-PHP 129</string>
+    <string name="baconcheesewhopper_price">Bacon Cheese Whopper\nAla carte-PHP 99\nMeal-PHP 119</string>
+    <string name="doublewhopper_price">Double Whopper\nAla carte-PHP 129\nMeal-PHP 159</string>
+    <string name="whopper_price">Whopper\nAla carte-PHP 75\nMeal-PHP 99</string>
+    <string name="whopperjr_price">Whopper Jr.\nAla carte-PHP 65\nMeal-PHP 85</string>
+
+    <string name="shrug_face">¯\\_(ツ)_/¯</string>
 </resources>

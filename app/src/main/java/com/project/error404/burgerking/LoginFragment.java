@@ -71,6 +71,7 @@ public class LoginFragment extends Fragment {
                     editor.putString("email", email.getText().toString());
                     editor.commit();
                     startActivity(new Intent(getActivity().getApplicationContext(), MasterActivity.class));
+                    getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 }
                 else {
                     Toast.makeText(getActivity().getApplicationContext(), "Email address or password is incorrect", Toast.LENGTH_LONG).show();

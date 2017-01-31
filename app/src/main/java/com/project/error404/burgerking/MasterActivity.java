@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
@@ -81,6 +82,7 @@ public class MasterActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
+        //MasterActivity.this.overridePendingTransition( R.anim.right_in, R.anim.right_out);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -108,6 +110,7 @@ public class MasterActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
 
         // start
+        //overridePendingTransition(R.anim.slidein, R.anim.slideout);
         initViews();
         fullname = (TextView) header.findViewById(R.id.fullName);
         email = (TextView) header.findViewById(R.id.email);
@@ -167,8 +170,10 @@ public class MasterActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which) {
                     res = myDB.getCurrentData(current_email);
                     inputText = input.getText().toString();
-                    if (inputText.equals(res.getString(4)))
+                    if (inputText.equals(res.getString(4))) {
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    }
                     else
                         Toast.makeText(getApplicationContext(), "Password did not match", Toast.LENGTH_SHORT).show();
                 }
@@ -203,6 +208,7 @@ public class MasterActivity extends AppCompatActivity
             editor.putString("email", "");
             editor.commit();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -232,7 +238,7 @@ public class MasterActivity extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
 
         list = prepareData();
-        adapter = new DataAdapter(getApplicationContext(), list);
+        adapter = new DataAdapter(getApplicationContext(), list, this);
         recyclerView.setAdapter(adapter);
     }
 

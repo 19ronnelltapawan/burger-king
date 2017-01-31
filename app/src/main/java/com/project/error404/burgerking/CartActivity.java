@@ -103,6 +103,7 @@ public class CartActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
+                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 } else {
                     Toast.makeText(getApplicationContext(), "Please enter correct amount", Toast.LENGTH_SHORT).show();
                     dialog.cancel();
@@ -144,6 +145,7 @@ public class CartActivity extends AppCompatActivity {
                     if (res.getCount() == 0) {
                         Toast.makeText(getApplicationContext(),"All item(s) deleted, going back",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MasterActivity.class));
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     }
                     else {
                         viewItems();
@@ -220,7 +222,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(), MasterActivity.class));
         finish();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 }

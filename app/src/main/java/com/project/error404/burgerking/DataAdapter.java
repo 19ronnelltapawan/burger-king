@@ -1,7 +1,10 @@
 package com.project.error404.burgerking;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private ArrayList<RecyclerModel> rC;
     private Context context;
+    private Activity activity;
 
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -37,9 +41,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         Picasso.with(context).load(rC.get(i).getCategory_img()).resize(350, 350).into(viewHolder.category_img);
     }
 
-    public DataAdapter(Context context, ArrayList<RecyclerModel> rC) {
+    public DataAdapter(Context context, ArrayList<RecyclerModel> rC, Activity activity) {
         this.rC = rC;
         this.context = context;
+        this.activity = activity;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -55,9 +60,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position = " + getLayoutPosition(), Toast.LENGTH_SHORT).show();
+            switch (getLayoutPosition()) {
+                case 0:
+                    context.startActivity(new Intent(context.getApplicationContext(), SubCategoryActivity.class));
+                    activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    break;
+                default:
+                    Toast.makeText(context.getApplicationContext(), context.getString(R.string.shrug_face), Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
 
     @Override
