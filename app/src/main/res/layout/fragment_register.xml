@@ -1,31 +1,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context="com.project.error404.burgerking.RegisterFragment">
+    tools:context="com.project.error404.burgerking.fragments.RegisterFragment">
 
-    <EditText
-        android:layout_width="300dp"
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:inputType="textCapWords|textPersonName"
         android:ems="10"
         android:id="@+id/editText3"
         android:hint="First name"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabelText="First name"
         android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/editText5" />
+        android:layout_alignStart="@+id/editText5" />
 
-    <EditText
-        android:layout_width="300dp"
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:inputType="textCapWords|textPersonName"
         android:ems="10"
-        android:layout_below="@+id/editText3"
-        android:layout_alignStart="@+id/editText3"
         android:id="@+id/editText4"
-        android:hint="Last name"/>
+        android:hint="Last name"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabelText="Last name"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/editText5" />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -33,27 +40,47 @@
         android:layout_below="@+id/editText4"
         android:layout_centerHorizontal="true"
         android:id="@+id/editText5"
-        android:hint="Email address"/>
+        android:hint="Email address"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabelText="Email address" />
 
-    <EditText
-        android:layout_width="300dp"
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:layout_below="@+id/editText5"
         android:layout_alignStart="@+id/editText5"
         android:id="@+id/editText6"
-        android:hint="Password"/>
+        android:hint="Password"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabelText="Password"
+        android:layout_alignEnd="@+id/editText5" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText7"
+        android:hint="Confirm Password"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabelText="Confirm Password"
+        android:layout_below="@+id/editText6"
+        android:layout_alignStart="@+id/editText6"
+        android:layout_alignEnd="@+id/editText6" />
 
     <Button
         android:text="Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText6"
-        android:layout_alignEnd="@+id/editText6"
         android:id="@+id/button"
         android:onClick="onClickRegister"
-        android:layout_alignStart="@+id/editText6" />
+        android:layout_below="@+id/editText7"
+        android:layout_alignEnd="@+id/editText7" />
 
     <TextView
         android:text="@string/swipeleft"
@@ -62,7 +89,7 @@
         android:id="@+id/textView"
         android:textStyle="normal|italic"
         android:textColor="@color/colorPrimary"
-        android:layout_below="@+id/button"
-        android:layout_alignStart="@+id/button" />
+        android:layout_below="@+id/editText7"
+        android:layout_alignStart="@+id/editText7" />
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,37 +10,44 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.error404.burgerking.classes.DatabaseHelper;
+import com.project.error404.burgerking.R;
+import com.project.error404.burgerking.classes.myClass;
+import com.rengwuxian.materialedittext.MaterialEditText;
+
 public class OrderActivity extends AppCompatActivity {
 
-    EditText quantity;
-    TextView desc, current_price;
-    Spinner drink;
-    CheckBox golarge;
     Button add;
+    CheckBox golarge;
+    ImageView logo;
+    MaterialEditText quantity;
     RadioButton opt1, opt2;
+    Spinner drink;
+    TextView desc, current_price;
 
-    String selected_drink="", golarge_checked="", item="";
+    String selected_drink, golarge_checked, item, alacarte, meal;
     int current_id;
     double alacarteprice, mealprice, golargeprice;
 
     Bundle b;
+    Cursor res;
+    DatabaseHelper myDB;
+    Intent i;
+    myClass mc;
     SharedPreferences myPrefs;
-
-    myClass mc = new myClass();
-    DatabaseHelper myDB = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        quantity = (EditText) findViewById(R.id.editText1);
+        quantity = (MaterialEditText) findViewById(R.id.editText1);
         drink = (Spinner) findViewById(R.id.spinner1);
         desc = (TextView) findViewById(R.id.textView1);
         golarge = (CheckBox) findViewById(R.id.checkBox);
@@ -48,9 +55,15 @@ public class OrderActivity extends AppCompatActivity {
         opt2 = (RadioButton) findViewById(R.id.radioButton2);
         current_price = (TextView) findViewById(R.id.textView7);
         add = (Button) findViewById(R.id.button11);
+        logo = (ImageView) findViewById(R.id.img_order);
 
+        mc = new myClass();
+        myDB = new DatabaseHelper(this);
         myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
         current_id = myPrefs.getInt("id", 0);
+
+        alacarte = getString(R.string.alacarte);
+        meal = getString(R.string.meal);
 
         Initialize();
 
@@ -58,62 +71,63 @@ public class OrderActivity extends AppCompatActivity {
         switch (b.getInt("choice")) {
             case 1:
                 desc.setText(R.string.hamburger_desc);
-                opt1.setText(R.string.hamburger_alacarte);
-                opt2.setText(R.string.hamburger_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.hamburger_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.hamburger_meal_price));
                 break;
             case 2:
                 desc.setText(R.string.cheeseburger_desc);
-                opt1.setText(R.string.cheeseburger_alacarte);
-                opt2.setText(R.string.cheeseburger_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.cheeseburger_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.cheeseburger_meal_price));
                 break;
             case 3:
                 desc.setText(R.string.doublecheeseburger_desc);
-                opt1.setText(R.string.doublecheeseburger_alacarte);
-                opt2.setText(R.string.doublecheeseburger_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.doublecheeseburger_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.doublecheeseburger_meal_price));
                 break;
             case 4:
                 desc.setText(R.string.baconcheeseburger_desc);
-                opt1.setText(R.string.baconcheeseburger_alacarte);
-                opt2.setText(R.string.baconcheeseburger_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.baconcheeseburger_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.baconcheeseburger_meal_price));
                 break;
             case 5:
                 desc.setText(R.string.bacondoublecheeseburger_desc);
-                opt1.setText(R.string.bacondoublecheeseburger_alacarte);
-                opt2.setText(R.string.bacondoublecheeseburger_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.doublecheeseburger_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.doublecheeseburger_meal_price));
                 break;
             case 6:
                 desc.setText(R.string.baconcheesewhopper_desc);
-                opt1.setText(R.string.baconcheesewhopper_alacarte);
-                opt2.setText(R.string.baconcheesewhopper_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.baconcheesewhopper_alarcarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.baconcheesewhopper_meal_price));
                 break;
             case 7:
                 desc.setText(R.string.doublewhopper_desc);
-                opt1.setText(R.string.doublewhopper_alacarte);
-                opt2.setText(R.string.doublewhopper_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.doublewhopper_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.doublewhopper_meal_price));
                 break;
             case 8:
                 desc.setText(R.string.whopper_desc);
-                opt1.setText(R.string.whopper_alacarte);
-                opt2.setText(R.string.whopper_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.whopper_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.whopper_meal_price));
                 break;
             case 9:
                 desc.setText(R.string.whopperjr_desc);
-                opt1.setText(R.string.whopperjr_alacarte);
-                opt2.setText(R.string.whopperjr_meal);
+                opt1.setText(alacarte+ " - " +getString(R.string.whopperjr_alacarte_price));
+                opt2.setText(meal+ " - " +getString(R.string.whopperjr_meal_price));
                 break;
             default:
                 startActivity(new Intent(getApplicationContext(), MasterActivity.class));
                 finish();
         }
 
-        alacarteprice=b.getDouble("alacarteprice");
-        mealprice=b.getDouble("mealprice");
-        golargeprice=b.getDouble("golargeprice");
+        logo.setImageResource(b.getInt("burger"));
+
+        alacarteprice = b.getDouble("alacarteprice");
+        mealprice = b.getDouble("mealprice");
+        golargeprice = b.getDouble("golargeprice");
 
         drink.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals("Choose drink"))
                     selected_drink="None";
@@ -126,18 +140,10 @@ public class OrderActivity extends AppCompatActivity {
                 else if (selectedItem.equals("Iced tea"))
                     selected_drink="Ice tea";
             }
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     public void onClickCheckbox(View view) {
@@ -194,7 +200,7 @@ public class OrderActivity extends AppCompatActivity {
 
     public void onClickQuantity(View view) {
         if (TextUtils.isEmpty(quantity.getText().toString()) || Integer.parseInt(quantity.getText().toString())==0) {
-            quantity.setError("Please enter a valid quantity");
+            quantity.setError("Invalid quantity");
             add.setEnabled(false);
         }
         else {
@@ -241,19 +247,19 @@ public class OrderActivity extends AppCompatActivity {
                     Initialize();
                 } else
                     Toast.makeText(getApplicationContext(), "Please check all of the requirements", Toast.LENGTH_SHORT).show();
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         }
     }
 
     public void onClickViewItems(View view) {
-        Cursor res = myDB.ViewItems(current_id);
+        res = myDB.selectItems(current_id);
 
         if (res.getCount() == 0)
             Toast.makeText(getApplicationContext(),"No items found",Toast.LENGTH_LONG).show();
-        else
+        else {
             startActivity(new Intent(getApplicationContext(), CartActivity.class));
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        }
     }
 
     private void Initialize() {
@@ -261,22 +267,22 @@ public class OrderActivity extends AppCompatActivity {
         quantity.setEnabled(false);
         quantity.setText("");
         drink.setEnabled(false);
+        drink.setSelection(0);
         golarge.setEnabled(false);
         golarge.setChecked(false);
-        mc.price=0;
-        mc.golarge=0;
-        mc.quantity=0;
-        item="";
-        selected_drink="";
-        golarge_checked="";
-        drink.setSelection(0);
-        current_price.setText("No Item Selected");
+        golarge_checked = "";
+        mc.price = 0;
+        mc.golarge = 0;
+        mc.quantity = 0;
+        item = "";
+        selected_drink = "";
+        current_price.setText("Price: 0.0");
     }
 
     public void CheckIfSame() {
-        Cursor res = myDB.checkIfSame(current_id, item, selected_drink, golarge_checked);
+        Cursor res = myDB.checkIfSameOrder(current_id, item, selected_drink, golarge_checked);
         if (res.getCount()==0)
-            myDB.InsertItem(current_id, item, quantity.getText().toString(), selected_drink, golarge_checked, String.valueOf(mc.computePrice()));
+            myDB.insertItem(current_id, item, quantity.getText().toString(), selected_drink, golarge_checked, String.valueOf(mc.computePrice()), b.getInt("burger"));
         else {
             myDB.updateItem(current_id,
                     Integer.parseInt(res.getString(1)),

@@ -1,10 +1,9 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.classes;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.error404.burgerking.R;
+import com.project.error404.burgerking.activities.SubCategoryActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
  */
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+
     private ArrayList<RecyclerModel> rC;
     private Context context;
     private Activity activity;
@@ -62,7 +64,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         public void onClick(View view) {
             switch (getLayoutPosition()) {
                 case 0:
-                    context.startActivity(new Intent(context.getApplicationContext(), SubCategoryActivity.class));
+                    activity.startActivity(new Intent(activity.getApplicationContext(), SubCategoryActivity.class));
                     activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     break;
                 default:

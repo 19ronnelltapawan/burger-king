@@ -2,29 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:id="@+id/myLayout"
-    tools:context="com.project.error404.burgerking.LoginFragment">
+    tools:context="com.project.error404.burgerking.fragments.LoginFragment">
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editText"
-        android:hint="Email"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:hint="Email address"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabelText="Email address" />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText2"
-        android:hint="Password"
         android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_alignStart="@+id/editText"
+        android:hint="Password"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAnimating="true"
+        app:met_floatingLabelText="Password" />
 
     <Button
         android:text="Login"
@@ -33,8 +40,7 @@
         android:id="@+id/button"
         android:onClick="onClickLogin"
         android:layout_below="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        android:layout_alignEnd="@+id/editText2" />
 
     <TextView
         android:text="@string/swiperight"
@@ -43,7 +49,7 @@
         android:id="@+id/textView"
         android:textStyle="normal|italic"
         android:textColor="@color/colorPrimary"
-        android:layout_below="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_below="@+id/editText2"
+        android:layout_alignStart="@+id/editText2" />
 
 </RelativeLayout>

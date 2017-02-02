@@ -5,6 +5,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash_image"
     android:orientation="vertical"
-    tools:context="com.project.error404.burgerking.SplashScreen">
+    tools:context="com.project.error404.burgerking.activities.SplashScreen">
 
 </LinearLayout>

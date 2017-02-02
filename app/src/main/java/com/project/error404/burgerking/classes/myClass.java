@@ -1,4 +1,4 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.classes;
 
 /**
  * Created by Ronnell on 12/10/2016.
@@ -6,7 +6,7 @@ package com.project.error404.burgerking;
 
 public class myClass {
 
-    double price=0, golarge=0, quantity=0, total=0;
+    public double price=0, golarge=0, quantity=0, total=0;
 
     public String getPrefsName() { return "myPrefs"; }
 

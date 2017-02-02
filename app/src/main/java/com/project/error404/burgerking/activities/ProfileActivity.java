@@ -1,18 +1,18 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.project.error404.burgerking.classes.DatabaseHelper;
+import com.project.error404.burgerking.R;
+import com.project.error404.burgerking.classes.myClass;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     Cursor res;
     DatabaseHelper myDB;
-    myClass mc;
+    myClass mC;
     SharedPreferences myPrefs;
     SharedPreferences.Editor editor;
 
@@ -39,48 +39,44 @@ public class ProfileActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.editText12);
         pass = (EditText) findViewById(R.id.editText13);
 
-        mc = new myClass();
+        mC = new myClass();
         myDB = new DatabaseHelper(this);
-
-        myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
+        myPrefs = getSharedPreferences(mC.getPrefsName(), 0);
         current_email  = myPrefs.getString("email", "");
-
-        res = myDB.getCurrentData(current_email);
+        res = myDB.selectCurrentData(current_email);
         id.setText(res.getString(0));
         fname.setText(res.getString(1));
         lname.setText(res.getString(2));
         email.setText(res.getString(3));
         pass.setText(res.getString(4));
+
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     public void onClickUpdate(View view) {
         if (fname.getText().toString().isEmpty() || lname.getText().toString().isEmpty() || email.getText().toString().isEmpty() || pass.getText().toString().isEmpty()) {
-            if (TextUtils.isEmpty(fname.getText().toString()))
+            if (fname.getText().toString().isEmpty())
                 fname.setError("Please enter your first name");
-
-            if (TextUtils.isEmpty(lname.getText().toString()))
+            if (lname.getText().toString().isEmpty())
                 lname.setError("Please enter your last name");
-
-            if (TextUtils.isEmpty(email.getText().toString()))
+            if (email.getText().toString().isEmpty())
                 email.setError("Please enter your email address");
-
-            if (TextUtils.isEmpty(pass.getText().toString()))
+            if (pass.getText().toString().isEmpty())
                 pass.setError("Please enter your password");
         }
         else {
-            res = myDB.viewEmailRecords(email.getText().toString());
-
+            res = myDB.selectEmailRecords(id.getText().toString(), email.getText().toString());
             if (res.getCount() > 0)
                 Toast.makeText(getApplicationContext(), "Email already taken", Toast.LENGTH_LONG).show();
             else {
                 myDB.updateRecord(id.getText().toString(), fname.getText().toString(), lname.getText().toString(), email.getText().toString(), pass.getText().toString());
-                Toast.makeText(getApplicationContext(), "Update successful!", Toast.LENGTH_LONG).show();
-                myPrefs = getSharedPreferences(mc.getPrefsName(), 0);
+                Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_LONG).show();
+                myPrefs = getSharedPreferences(mC.getPrefsName(), 0);
                 editor = myPrefs.edit();
                 editor.putString("email", email.getText().toString());
                 editor.commit();
                 startActivity(new Intent(getApplicationContext(), MasterActivity.class));
-                finish();
+                finishAfterTransition();
             }
         }
     }
@@ -88,7 +84,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        finishAfterTransition();
     }
 }

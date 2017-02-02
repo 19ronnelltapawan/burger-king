@@ -11,7 +11,7 @@
         android:noHistory="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,28 +19,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="Welcome"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:label="Profile"
-            android:parentActivityName=".MasterActivity"
+            android:parentActivityName=".activities.MasterActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".activities.OrderActivity"
             android:label="Burgers"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".CartActivity"
+            android:name=".activities.CartActivity"
             android:label="Cart"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".MasterActivity"
+            android:name=".activities.MasterActivity"
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PlaceholderActivity" />
-        <activity android:name=".SubCategoryActivity" />
+        <activity android:name=".activities.SubCategoryActivity" />
     </application>
 
 </manifest>

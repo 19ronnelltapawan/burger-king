@@ -1,4 +1,4 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.fragments;
 
 
 import android.content.Intent;
@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.project.error404.burgerking.R;
+import com.project.error404.burgerking.activities.MasterActivity;
+import com.project.error404.burgerking.classes.DatabaseHelper;
+import com.project.error404.burgerking.classes.myClass;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 
 /**
@@ -25,7 +28,7 @@ import android.widget.Toast;
 public class LoginFragment extends Fragment {
 
     Button login;
-    EditText email,pass;
+    MaterialEditText email,pass;
     TextView swipe;
     RelativeLayout myLayout;
 
@@ -45,8 +48,8 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        email = (EditText) view.findViewById(R.id.editText);
-        pass = (EditText) view.findViewById(R.id.editText2);
+        email = (MaterialEditText) view.findViewById(R.id.editText);
+        pass = (MaterialEditText) view.findViewById(R.id.editText2);
         login = (Button) view.findViewById(R.id.button);
         swipe = (TextView) view.findViewById(R.id.textView);
         myLayout = (RelativeLayout) view.findViewById(R.id.myLayout);
@@ -63,7 +66,7 @@ public class LoginFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                storedPassword = myDB.getLoginInfo(email.getText().toString());
+                storedPassword = myDB.selectLoginInfo(email.getText().toString());
                 if (pass.getText().toString().equals(storedPassword)) {
                     editor = myPrefs.edit();
                     editor.putBoolean("isFromSplash", false);

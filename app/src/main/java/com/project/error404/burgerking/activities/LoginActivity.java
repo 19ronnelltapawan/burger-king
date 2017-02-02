@@ -1,21 +1,16 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.activities;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.project.error404.burgerking.R;
+import com.project.error404.burgerking.classes.SwipeAdapter;
+import com.project.error404.burgerking.classes.myClass;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //LoginActivity.this.overridePendingTransition( R.anim.right_in, R.anim.right_out);
+
         logo = (ImageView) findViewById(R.id.imageView);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);

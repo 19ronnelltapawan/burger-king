@@ -1,4 +1,4 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,16 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +23,12 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.project.error404.burgerking.classes.DatabaseHelper;
+import com.project.error404.burgerking.R;
+import com.project.error404.burgerking.classes.RecyclerModel;
+import com.project.error404.burgerking.classes.DataAdapter;
+import com.project.error404.burgerking.classes.myClass;
 
 import java.util.ArrayList;
 
@@ -61,74 +62,80 @@ public class MasterActivity extends AppCompatActivity
     };
 
     EditText input;
-    TextView fullname, email;
+    TextView fullName, email;
 
-    int current_id;
-    String current_email, inputText;
+    int id, currentID;
+    String currentEmail, inputID;
 
+    ActionBarDrawerToggle toggle;
     AlertDialog.Builder builder;
     ArrayList list;
     Cursor res;
     DataAdapter adapter;
     DatabaseHelper myDB;
+    DrawerLayout drawer;
     FloatingActionButton fab;
     myClass mC;
+    NavigationView navigationView;
     RecyclerModel rC;
     RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
     SharedPreferences myPrefs;
     SharedPreferences.Editor editor;
+    Toolbar toolbar;
+    View header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
-        //MasterActivity.this.overridePendingTransition( R.anim.right_in, R.anim.right_out);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                res = myDB.ViewItems(current_id);
-
+                res = myDB.selectItems(currentID);
                 if (res.getCount() == 0)
                     Snackbar.make(view, "No items in cart yet", Snackbar.LENGTH_LONG).show();
                 else
                     startActivity(new Intent(getApplicationContext(), CartActivity.class));
+
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header = navigationView.getHeaderView(0);
+        header = navigationView.getHeaderView(0);
 
         // start
-        //overridePendingTransition(R.anim.slidein, R.anim.slideout);
         initViews();
-        fullname = (TextView) header.findViewById(R.id.fullName);
+        fullName = (TextView) header.findViewById(R.id.fullName);
         email = (TextView) header.findViewById(R.id.email);
 
         mC = new myClass();
         myDB = new DatabaseHelper(this);
         myPrefs = getSharedPreferences(mC.getPrefsName(), 0);
 
-        current_email = myPrefs.getString("email", "");
-        res = myDB.getCurrentData(current_email);
+        currentEmail = myPrefs.getString("email", "");
+        res = myDB.selectCurrentData(currentEmail);
 
         editor = myPrefs.edit();
         editor.putInt("id", Integer.parseInt(res.getString(0)));
         editor.commit();
-        current_id = myPrefs.getInt("id", 0);
+        currentID = myPrefs.getInt("id", 0);
 
-        fullname.setText(res.getString(1)+" "+res.getString(2));
+        fullName.setText(res.getString(1)+" "+res.getString(2));
         email.setText(res.getString(3));
+
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @Override
@@ -143,7 +150,7 @@ public class MasterActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         /*if (id == R.id.action_settings) {
@@ -157,7 +164,7 @@ public class MasterActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        id = item.getItemId();
 
         if (id == R.id.nav_profile) {
             builder = new AlertDialog.Builder(this);
@@ -168,12 +175,11 @@ public class MasterActivity extends AppCompatActivity
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    res = myDB.getCurrentData(current_email);
-                    inputText = input.getText().toString();
-                    if (inputText.equals(res.getString(4))) {
+                    res = myDB.selectCurrentData(currentEmail);
+
+                    inputID = input.getText().toString();
+                    if (inputID.equals(res.getString(4)))
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                    }
                     else
                         Toast.makeText(getApplicationContext(), "Password did not match", Toast.LENGTH_SHORT).show();
                 }
@@ -187,7 +193,7 @@ public class MasterActivity extends AppCompatActivity
             builder.show();
         }
         else if (id == R.id.nav_history) {
-            res = myDB.getHistory(current_id);
+            res = myDB.selectHistory(currentID);
             builder = new AlertDialog.Builder(this);
 
             if (res.getString(0) == null)
@@ -208,17 +214,28 @@ public class MasterActivity extends AppCompatActivity
             editor.putString("email", "");
             editor.commit();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            finish();
+            finishAfterTransition();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START))
+            drawer.closeDrawer(GravityCompat.START);
+        else {
+            super.onBackPressed();
+            finishAfterTransition();
+        }
+    }
+
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+        layoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy){
@@ -228,9 +245,8 @@ public class MasterActivity extends AppCompatActivity
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
                     fab.show();
-                }
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
@@ -243,26 +259,13 @@ public class MasterActivity extends AppCompatActivity
     }
 
     private ArrayList prepareData(){
-        ArrayList list = new ArrayList<>();
-
+        list = new ArrayList<>();
         for(int i=0; i<category_name.length; i++) {
             rC = new RecyclerModel();
             rC.setCategory_name(category_name[i]);
             rC.setCategory_img(category_image[i]);
             list.add(rC);
         }
-
         return list;
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-            finish();
-        }
     }
 }

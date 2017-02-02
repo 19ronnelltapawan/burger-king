@@ -1,9 +1,11 @@
-package com.project.error404.burgerking;
+package com.project.error404.burgerking.classes;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.project.error404.burgerking.fragments.LoginFragment;
+import com.project.error404.burgerking.fragments.RegisterFragment;
 
 /**
  * Created by rober on 1/26/2017.
@@ -14,15 +16,6 @@ public class SwipeAdapter extends FragmentStatePagerAdapter {
     public SwipeAdapter(FragmentManager fm) {
         super(fm);
     }
-
-    /*@Override
-    public Fragment getItem(int i) {
-        Fragment fragment = new PageFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("count",i+1);
-        fragment.setArguments(bundle);
-        return fragment;
-    }*/
 
     @Override
     public Fragment getItem(int i) {
