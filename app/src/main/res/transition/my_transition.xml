@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <changeBounds>
+        <targets>
+            <target android:targetId="@id/subcategory_img" />
+            <target android:targetId="@id/img_order" />
+        </targets>
+    </changeBounds>
+    <changeImageTransform>
+        <targets>
+            <target android:targetId="@id/subcategory_img" />
+            <target android:targetId="@id/img_order" />
+        </targets>
+    </changeImageTransform>
+</transitionSet>
